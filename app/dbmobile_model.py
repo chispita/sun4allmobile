@@ -16,11 +16,11 @@ Base = declarative_base()
 class Images(Base):
     __tablename__ = 'images'
     id = Column(Integer, primary_key = True)
-    description = Column(String)
-    browser = Column(String)
-    source_ip = Column(String)
+    description = Column(String, nullable=False)
+    browser = Column(String, default='')
+    source_ip = Column(String, default='')
     created = Column(DateTime)
-    deleted = Column(DateTime)
+    deleted = Column(DateTime, default=0)
     points = relationship('Points')
 
     def __repr__(self):
@@ -58,9 +58,9 @@ class Points(Base):
     id = Column(Integer, primary_key = True)
     x = Column(Integer)
     y = Column(Integer)
-    source_ip = Column(String)
+    source_ip = Column(String, default='')
     created = Column(DateTime)
-    deleted = Column(DateTime)
+    deleted = Column(DateTime, default=0)
     images_id = Column(Integer, ForeignKey('images.id'))
     #image = relationship(Images)
 
