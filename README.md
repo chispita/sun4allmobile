@@ -23,14 +23,14 @@ HTTP Metodo Accion Ejemplo
 
 Vamos a detallar todos los servicios que presta:
 
-###Comprobacion de que el sistema esta levantado
+### Comprobacion de que el sistema esta levantado
 Esta entrada, no esta dentro del RESTful pero sirve para chequear si funciona el sistema, la llamada sera:
 ```
 http://{site-url}
 ```
 El sistema nos tiene que devolver un mensaje de bienvenida.
 
-###Obtencion de todas las imágenes en el sistema.
+### Obtencion de todas las imágenes en el sistema.
 Corresponde a una llamada de tipo GET que obtiene un listado de todas las imágenes del sistema 
 
 ```
