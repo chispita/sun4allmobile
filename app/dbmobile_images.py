@@ -27,7 +27,7 @@ def remove(value):
      session.query(Images).filter_by(id=value).delete()
 
 def get(value):
-    return session.query(Images).filter_by(id=value).first()
+    return session.query(Images).filter_by(description=value).first()
 
 def getall():
     return  session.query(Images).all()
