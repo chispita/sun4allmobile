@@ -7,9 +7,9 @@
 
 ## Introducción
 La RESTful API esta localizada en:
-'''
+```
 http://{site-url}/api
-'''
+``` 
 
 
 ## Servicios
