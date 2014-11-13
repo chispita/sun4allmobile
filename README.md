@@ -10,7 +10,7 @@ La RESTful API esta localizada en:
 ```
 http://{site-url}/api
 ``` 
-Espera y devolvera siempre un valor de tipo[JSON](http://es.wikipedia.org/wiki/JSON).
+Espera y devolvera siempre un valor de tipo [JSON](http://es.wikipedia.org/wiki/JSON).
 
 
 ## Servicios
@@ -23,18 +23,59 @@ HTTP Metodo Accion Ejemplo
 
 Vamos a detallar todos los servicios que presta:
 
-1. Comprobacion de que el sistema esta levantado
-   Esta entrada, no esta dentro del RESTful pero sirve para chequear si funciona el sistema, la llamada sera:
+###Comprobacion de que el sistema esta levantado
+Esta entrada, no esta dentro del RESTful pero sirve para chequear si funciona el sistema, la llamada sera:
+```
+http://{site-url}
+```
+El sistema nos tiene que devolver un mensaje de bienvenida.
 
-   ```
-   http://{site-url}
-   ```
+###Obtencion de todas las imágenes en el sistema.
+Corresponde a una llamada de tipo GET que obtiene un listado de todas las imágenes del sistema 
 
-   El sistema nos tiene que devolver un mensaje de bienvenida.
+```
+http://{site-url}/api/images
+```
 
-
-
-
-## Tareas Pendientes
-- [X] ...
-
+El sistema te devolvera los datos de esta forma:
+```
+{
+     "images": [
+    {
+        "browser": null, 
+        "created": "Thu, 13 Nov 2014 12:52:23 GMT", 
+        "deleted": "Thu, 13 Nov 2014 12:52:23 GMT", 
+        "description": "carlos11", 
+        "id": 27, 
+        "points": [
+            {
+                "x": 1.0, 
+                "y": 2.0
+            }, 
+            {
+                "x": 1.1, 
+                "y": 2.3
+            }
+           ], 
+        "source_ip": null
+    },
+    {
+        "browser": null, 
+        "created": "Thu, 13 Nov 2014 12:52:44 GMT", 
+        "deleted": "Thu, 13 Nov 2014 12:52:44 GMT", 
+        "description": "carlos11", 
+        "id": 28, 
+        "points": [
+            {
+                "x": 1.0, 
+                "y": 2.0
+            }, 
+            {
+                "x": 1.1, 
+                "y": 2.3
+            }
+           ], 
+        "source_ip": null
+    }
+}
+```
