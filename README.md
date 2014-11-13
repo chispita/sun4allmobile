@@ -10,6 +10,7 @@ La RESTful API esta localizada en:
 ```
 http://{site-url}/api
 ``` 
+Espera y devolvera siempre un [JSON](http://es.wikipedia.org/wiki/JSON)
 
 
 ## Servicios
