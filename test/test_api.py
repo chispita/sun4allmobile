@@ -34,24 +34,7 @@ class WebServiceTestCase(unittest.TestCase):
 
         assert 200 == res.status_code
 
-    def test_02_Get_Image_Exits(self):
-        self.test_app = app.test_client()
-
-        url = '/api/images/%s' % 1
-        res = self.test_app.get( url )
-
-        assert 200 == res.status_code
-
-    def test_03_Get_Image_NonExists(self):
-        self.test_app = app.test_client()
-
-        url = '/api/images/%s' % 75252
-        res = self.test_app.get( url )
-
-        err_msg = "Image_NonExits  excepcion buscando una imagen inexistente"
-        assert 404 == res.status_code, err_msg
-
-    def test_04_Add_Image(self):
+    def test_02_Add_Image(self):
         self.test_app = app.test_client()
 
         #num_images = len(images)
@@ -93,3 +76,20 @@ class WebServiceTestCase(unittest.TestCase):
 
         #assert 
         #dom = BeautifulSoup(res.data)
+
+    def test_03_Get_Image_NonExists(self):
+        self.test_app = app.test_client()
+
+        url = '/api/images/%s' % '75252'
+        res = self.test_app.get( url )
+
+        err_msg = "Image_NonExits  excepcion buscando una imagen inexistente"
+        assert 404 == res.status_code, err_msg
+
+    def test_04_Get_Image_Exits(self):
+        self.test_app = app.test_client()
+
+        url = '/api/images/%s' % 'carlos11'
+        res = self.test_app.get( url )
+
+        assert 200 == res.status_code
