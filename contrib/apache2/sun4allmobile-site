@@ -1,0 +1,57 @@
+#
+# VirtualHost template
+# Note: to use the template, rename it to /etc/apache2/vhost.d/yourvhost.conf. 
+# Files must have the .conf suffix to be loaded.
+#
+# See /usr/share/doc/packages/apache2/README.QUICKSTART for further hints 
+# about virtual hosts.
+#
+# NameVirtualHost statements can be added to /etc/apache2/listen.conf.
+#
+# Almost any Apache directive may go into a VirtualHost container.
+# The first VirtualHost section is used for requests without a known
+# server name.
+#
+<VirtualHost *:80>
+    ServerAdmin webmaster@ibercivis.es
+
+    ServerName  sun4allmobile.socientize.eu
+    ServerAlias www.sun4allmobile.socientize.eu
+
+    SetEnvIf Request_URI "^/check\.txt$" dontlog
+    SetEnvIf User-Agent "^check_http" dontlog
+
+    DirectoryIndex index.html
+
+    # DocumentRoot: The directory out of which you will serve your
+    # documents. By default, all requests are taken from this directory, but
+    # symbolic links and aliases may be used to point to other locations.
+    DocumentRoot /var/www/sun4allmobile
+
+    # if not specified, the global error log is used
+    ErrorLog ${APACHE_LOG_DIR}/sun4allmobile.socientize.eu_error.log
+
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    LogLevel debug
+    #CustomLog ${APACHE_LOG_DIR}/database.socientize.eu_access.log combined
+    CustomLog ${APACHE_LOG_DIR}/sun4allmobile.socientize.eu_access.log proxy env=!dontlog
+
+    # don't loose time with IP address lookups
+    HostnameLookups On
+
+    # needed for named virtual hosts
+    UseCanonicalName Off
+
+    WSGIDaemonProcess sun4allmobile user=www-data group=www-data threads=5
+    WSGIScriptAlias / /var/www/sun4allmobile/contrib/sun4allmobile.wsgi
+
+    <Directory /var/www/sun4allmobile>
+        WSGIProcessGroup sun4allmobile
+        WSGIApplicationGroup %{GLOBAL}
+        Order deny,allow
+        Allow from all
+    </Directory>
+
+</VirtualHost>
+
