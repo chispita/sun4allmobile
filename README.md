@@ -6,9 +6,19 @@
 
 
 ## Introducción
+La RESTful API esta localizada en:
+'''
+http://{site-url}/api
+'''
 
 
-## Infrastructura
+## Servicios
+Los estándares de llamadas http que utilizaremos seran los siguiente:
+HTTP Metodo Accion Ejemplo
+
+* GET  (Obtiene información de un recurso): http://{site-url}/api/images
+* GET  (Obtiene información de un recurso): http://{site-url}/ap/images/2
+* POST (Crea un nuevo recurso): http://{site-url}/api/images (con los recursos necesarios)
 
 
 ## Tareas Pendientes
