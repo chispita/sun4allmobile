@@ -117,8 +117,9 @@ Y, los parámetros estaran en formato JSON, un ejmplo de envío podría ser:
 ```
 
 ## Tareas pendientes
-- [ ] Comprobar Test Units
-- [ ] Cambiar la llamada de busqueda de imagen por el campo descripcion.
+- [x] Comprobar Test Units
+- [x] Cambiar la llamada de busqueda de imagen por el campo descripcion.
 - [ ] Grabar datos complementarios del navegador, ip, ...
-- [ ] Arreglar la grabacion del campo delete a nulo.
+- [x] Arreglar la grabacion del campo delete a nulo.
 - [ ] Nueva entrada de busqueda de imágen por punto.
+- [ ] Integracion Alembic
