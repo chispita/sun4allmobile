@@ -1,0 +1,6 @@
+database = {
+    'server' : 'localhost',
+    'name' : 'xxxxxx',
+    'user' : 'xxxxxx',
+    'pass' : 'xxxxxx'
+}

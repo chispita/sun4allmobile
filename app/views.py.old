@@ -1,0 +1,152 @@
+from app import app
+from flask import jsonify, abort, make_response, request, url_for
+from flask.ext.httpauth import HTTPBasicAuth
+
+auth = HTTPBasicAuth()
+                  
+images = [
+    {
+        'id': 1,
+        'title': u'Sky Blue',
+        'description': u'Image #11111',
+        'done': False,
+        'points':
+            [
+                {
+                    'x':1111,
+                    'y':2222
+                },
+                {   'x':1212,
+                    'y':2526
+                }
+            ]
+    },
+    {
+        'id': 2,
+        'title': u'Moon Dark',
+        'description': u'Image #22212',
+        'done': False
+    }
+]
+
+@auth.get_password
+def get_password(username):
+    if username == 'carlos':
+        return 'carlos'
+    return None
+
+@auth.error_handler
+def unauthorized():
+    return make_response(jsonify({'error': 'Unauthorized access'}), 401)
+
+def make_public_image(image):
+    new_image = {}
+
+    for field in image:
+        if field == 'id':
+            new_image['uri'] = url_for('get_image', image_id=image['id'], _external=True)
+        else:
+            new_image[field] = image[field]
+    return new_image
+
+@app.route('/api/images', methods=['GET'])
+#@auth.login_required
+def get_images():
+    """ 
+    Get all Images
+    """
+    return jsonify({'images': map(make_public_image, images)})
+
+@app.route('/api/images/<int:image_id>', methods=['GET'])
+#@auth.login_required
+def get_image(image_id):
+    """
+    Get one image
+    """
+    image = filter(lambda t: t['id'] == image_id, images)
+    if len(images) == 0:
+        abort(404)
+    return jsonify({'image': image[0]})
+
+
+#@app.route('/api/images/<int:image_id>/<int:point_id>', methods=['GET'])
+#@auth.login_required
+#def get_point(image_id, point_id):
+#    """
+#    Get one image
+#    """
+#    image = filter(lambda t: t['id'] == image_id, images)
+#    if len(images) == 0:
+#        abort(404)
+#
+#    point = t['points'][point_id]
+#    if len(point) == 0:
+#        abort(404)
+#    return jsonify({'point': point[0]})
+
+@app.route('/api/images', methods=['POST'])
+#@auth.login_required
+def create_image():
+    if not request.json or not 'title' in request.json:
+        abort(400)
+    image = {
+        'id': images[-1]['id'] + 1,
+        'title': request.json['title'],
+        'description': request.json.get('description', ""),
+        'done': False
+    }
+    images.append(image)
+    return jsonify({'image': image}), 201
+
+
+@app.route('/api/images/<int:image_id>', methods=['PUT'])
+#@auth.login_required
+def update_image(image_id):
+    image = filter(lambda t: t['id'] == image_id, images)
+    if len(image) == 0:
+        abort(404)
+    if not request.json:
+        abort(400)
+    if 'title' in request.json and type(request.json['title']) != unicode:
+        abort(400)
+    if 'description' in request.json and type(request.json['description']) is not unicode:
+        abort(400)
+    if 'done' in request.json and type(request.json['done']) is not bool:
+        abort(400)
+    image[0]['title'] = request.json.get('title', image[0]['title'])
+    image[0]['description'] = request.json.get('description', image[0]['description'])
+    image[0]['done'] = request.json.get('done', image[0]['done'])
+    return jsonify({'image': image[0]})
+
+
+@app.route('/api/images/<int:image_id>', methods=['DELETE'])
+#@auth.login_required
+def delete_image(image_id):
+    image = filter(lambda t: t['id'] == image_id, images)
+    if len(image) == 0:
+        abort(404)
+    images.remove(image[0])
+    return jsonify({'result': True})
+
+@app.errorhandler(404)
+def not_found(error):
+    """
+    Define error
+    """
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+@app.route('/')
+@app.route('/index')
+def index():
+    """
+    Home page
+    """
+    return "Hello, sun4allmobile application1!"
+
+
+if __name__ == "__main__":  # pragma: no cover
+    #logging.basicConfig(level=logging.NOTSET)
+   #app.run(host=app.config['HOST'], port=get_port(),
+   #                         debug=app.config.get('DEBUG', True))
+   app.run()
+
