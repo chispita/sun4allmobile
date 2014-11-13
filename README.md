@@ -83,13 +83,19 @@ El sistema te devolvera los datos de esta forma:
 Corresponde a una llamada de tipo GET que obtiene una única imágen 
 
 ```
-http://{site-url}/api/images({id}
+http://{site-url}/api/images/{id}
 ```
 
 En caso de que encuentre la imágen devolvera la misma en el mismo formato que la entrada anterior 
 
 ### Grabación de una imágen
-Corresponde a una llamada de tipo POST y se deberán de enviar los parámetros en formato JSON, un ejmplo de envío podría ser:
+Corresponde a una llamada de tipo POST y se deberán de enviar los parámetros en formato JSON, la llamada tendra que hacerse a la url:
+
+```
+http://{site-url}/api/images
+```
+
+Y, los parámetros estaran en formato JSON, un ejmplo de envío podría ser:
 
 ```
 { 
@@ -108,7 +114,11 @@ Corresponde a una llamada de tipo POST y se deberán de enviar los parámetros e
         }
     }
 }
-
-
 ```
 
+## Tareas pendientes
+- [ ] Comprobar Test Units
+- [ ] Cambiar la llamada de busqueda de imagen por el campo descripcion.
+- [ ] Grabar datos complementarios del navegador, ip, ...
+- [ ] Arreglar la grabacion del campo delete a nulo.
+- [ ] Nueva entrada de busqueda de imágen por punto.
