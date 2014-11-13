@@ -1,0 +1,6 @@
+*.pyc
+flask/*
+app/*.pyc
+app/config.py
+test/*.pyc
+alembic.ini
