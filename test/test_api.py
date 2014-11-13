@@ -12,7 +12,6 @@ SERVER_URL = "http://sun4allmobile.socientize.eu"
 
 class WebServiceTestCase(unittest.TestCase):
 
-    images = init_db()
 
     def test_00_Home(self):
         self.test_app = app.test_client()
