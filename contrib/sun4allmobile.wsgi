@@ -4,4 +4,4 @@ execfile(activate_this, dict(__file__=activate_this))
 import sys
 sys.path.insert(0,'/var/www/sun4allmobile')
 # Run the web-app
-from app.views import app as application
+from app.web import app as application
