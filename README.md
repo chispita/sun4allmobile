@@ -79,11 +79,11 @@ El sistema te devolvera los datos de esta forma:
     }
 }
 ```
-### Obtencion de una imágen por su identificador 
+### Obtencion de una imágen por su descripcion
 Corresponde a una llamada de tipo GET que obtiene una única imágen 
 
 ```
-http://{site-url}/api/images/{id}
+http://{site-url}/api/images/{description}
 ```
 
 En caso de que encuentre la imágen devolvera la misma en el mismo formato que la entrada anterior 
