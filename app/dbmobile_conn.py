@@ -28,24 +28,3 @@ DBSession = sessionmaker(bind=engine)
 # revert all of them back to the last commit by calling
 session = DBSession()
 
-
-
-#image = session.query(Images).filter_by(id=1).first()
-
-'''
-qry = session.query(Images)\
-    .join(Images.points)\
-    .filter(Images.id==1)\
-    .filter( Points.id==4)\
-    .one()
-
-#image = session.query(Images).filter(Images.id==1, Points.images_id==3).first()
-
-
-if qry:
-    print 'image  : %s' % qry
-    #print 'points : %s' % qry.points
-
-    #print 'point: %s'% image.points
-    #print 'id:%s,-> image_id: %s, x:%s, y:%s' % ( image.points[0].id, image.points[0].images_id,image.points[0].x, image.points[0].y)
-'''
