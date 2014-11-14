@@ -44,7 +44,7 @@ El sistema te devolvera los datos de esta forma:
     {
         "browser": null, 
         "created": "Thu, 13 Nov 2014 12:52:23 GMT", 
-        "deleted": "Thu, 13 Nov 2014 12:52:23 GMT", 
+        "deleted": "", 
         "description": "carlos11", 
         "id": 27, 
         "points": [
@@ -62,7 +62,7 @@ El sistema te devolvera los datos de esta forma:
     {
         "browser": null, 
         "created": "Thu, 13 Nov 2014 12:52:44 GMT", 
-        "deleted": "Thu, 13 Nov 2014 12:52:44 GMT", 
+        "deleted": "", 
         "description": "carlos11", 
         "id": 28, 
         "points": [
@@ -122,4 +122,5 @@ Y, los parámetros estaran en formato JSON, un ejmplo de envío podría ser:
 - [ ] Grabar datos complementarios del navegador, ip, ...
 - [x] Arreglar la grabacion del campo delete a nulo.
 - [ ] Nueva entrada de busqueda de imágen por punto.
-- [ ] Integracion Alembic
+- [x] Integracion Alembic
+- [ ] logging and mail alert
