@@ -31,8 +31,6 @@ class TaskImagesAPI(Resource):
         """
 
         if not request.json:
-            #or not 'points' in request.json 
-            #or not 'description' in request.json:
             return jsonify( 
                 {
                     'status':       'failed',
