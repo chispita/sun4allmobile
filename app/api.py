@@ -1,4 +1,4 @@
-from flask import jsonify, abort
+from flask import jsonify, abort, request
 from flask.ext.restful import Resource
 
 import json
@@ -30,7 +30,18 @@ class TaskImagesAPI(Resource):
         Insert a image 
         """
 
-        if not request.json or not 'points' in request.json or not 'description' in request.json :
+        if not request.json:
+            #or not 'points' in request.json 
+            #or not 'description' in request.json:
+            return jsonify( 
+                {
+                    'status':       'failed',
+                    'action':       'POST',
+                    'exception_msg':'not request json sent',
+                    'status_code':  400
+                }),400
+
+        if not 'points' in request.json or not 'description' in request.json:
             return jsonify( 
                 {
                     'status':       'failed',
