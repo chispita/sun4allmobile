@@ -29,7 +29,6 @@ class TaskImagesAPI(Resource):
         """ 
         Insert a image 
         """
-
         if not request.json:
             return jsonify( 
                 {
