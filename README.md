@@ -44,10 +44,6 @@ http://{site-url}/api/images
 El sistema te devolvera los datos de esta forma:
 ```
 {
-    "images"{array
-}
-
-{
      "images": [
     {
         "browser": null, 
@@ -87,11 +83,12 @@ El sistema te devolvera los datos de esta forma:
     }
 }
 ```
-Reponse Messages
-| HTTP Status Code | Reason | Response Model |
-|------------------|--------|----------------|
-|200               |sucess  |                |
-
+Reponse Messages:
+```
+Reponse Messages:
+ HTTP Status Code:200 
+ Reason: success
+```
 
 ### Obtencion de una imágen por su descripcion
 Corresponde a una llamada de tipo GET que obtiene una única imágen 
@@ -128,6 +125,14 @@ Y, los parámetros estaran en formato JSON, un ejmplo de envío podría ser:
         }
     }
 }
+```
+
+Reponse Messages:
+```
+Reponse Messages:
+ HTTP Status Code:400
+ Reason: Invalid request argument, or request argument out of boundaries
+ Model: ErrorMessage{ detail(string):the reason why the request could not be successfully processed }
 ```
 
 ## Tareas pendientes
