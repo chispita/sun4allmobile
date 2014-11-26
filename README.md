@@ -13,13 +13,17 @@ http://{site-url}/api
 Espera y devolvera siempre un valor de tipo [JSON](http://es.wikipedia.org/wiki/JSON).
 
 
-## Servicios
+## Request
 Los estándares de llamadas http que utilizaremos seran los siguiente:
 HTTP Metodo Accion Ejemplo
 
 * GET  (Obtiene información de un recurso): http://{site-url}/api/images
 * GET  (Obtiene información de un recurso): http://{site-url}/ap/images/2
 * POST (Crea un nuevo recurso): http://{site-url}/api/images (con los recursos necesarios)
+
+## Responses
+El formato de response depende de la cabecera 'Accept'. Pero el formato estandar es el 
+formato JSON (application/json).
 
 Vamos a detallar todos los servicios que presta:
 
@@ -39,6 +43,10 @@ http://{site-url}/api/images
 
 El sistema te devolvera los datos de esta forma:
 ```
+{
+    "images"{array
+}
+
 {
      "images": [
     {
@@ -79,6 +87,12 @@ El sistema te devolvera los datos de esta forma:
     }
 }
 ```
+Reponse Messages
+| HTTP Status Code | Reason | Response Model |
+|------------------|--------|----------------|
+|200               |sucess  |                |
+
+
 ### Obtencion de una imágen por su descripcion
 Corresponde a una llamada de tipo GET que obtiene una única imágen 
 
