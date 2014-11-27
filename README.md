@@ -12,6 +12,16 @@ http://{site-url}/api
 ``` 
 Espera y devolvera siempre un valor de tipo [JSON](http://es.wikipedia.org/wiki/JSON).
 
+## Instalacion
+
+Instalaremos un virtualenv para aislar el sistema. Una vez realizado esta tarea procederemos
+a activar el mismo mediante
+```
+#Creara el entorno virtual
+virtualenv flask
+#Nos introducimos en el entorno virtual
+source/flask/bin/activate
+```
 
 ## Request
 Los estándares de llamadas http que utilizaremos seran los siguiente:
