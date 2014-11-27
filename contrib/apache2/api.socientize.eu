@@ -16,7 +16,7 @@
     ServerAdmin webmaster@ibercivis.es
 
     ServerName api.socientize.eu
-    ServerAlias www.api.socientize.eu
+    ServerAlias www.api.socientize.eu sun4allmobile.socientize.eu
 
     SetEnvIf Request_URI "^/check\.txt$" dontlog
     SetEnvIf User-Agent "^check_http" dontlog
