@@ -26,6 +26,7 @@ class WebServiceTestCase(unittest.TestCase):
 
         assert 200 == res.status_code
 
+    '''
     def test_01_Get_Images(self):
         self.test_app = app.test_client()
 
@@ -33,6 +34,7 @@ class WebServiceTestCase(unittest.TestCase):
         res = self.test_app.get( url )
 
         assert 200 == res.status_code
+    '''
 
     def test_02_Add_Image(self):
         self.test_app = app.test_client()
@@ -42,7 +44,7 @@ class WebServiceTestCase(unittest.TestCase):
         url = '/api/images'
 
         data = { 
-                    'description': 'carlos11', 
+                    'description': 'zoe', 
                     'points':'99'}
 
         data['points'] = []
@@ -77,6 +79,7 @@ class WebServiceTestCase(unittest.TestCase):
         #assert 
         #dom = BeautifulSoup(res.data)
 
+    '''
     def test_03_Get_Image_NonExists(self):
         self.test_app = app.test_client()
 
@@ -93,3 +96,4 @@ class WebServiceTestCase(unittest.TestCase):
         res = self.test_app.get( url )
 
         assert 200 == res.status_code
+    '''
