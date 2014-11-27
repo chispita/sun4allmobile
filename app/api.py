@@ -29,6 +29,7 @@ class TaskImagesAPI(Resource):
         """ 
         Insert a image 
         """
+
         if not request.json:
             return jsonify( 
                 {
@@ -38,12 +39,12 @@ class TaskImagesAPI(Resource):
                     'status_code':  400
                 }),400
 
-        if not 'points' in request.json or not 'description' in request.json:
+        if not 'description' in request.json:
             return jsonify( 
                 {
                     'status':       'failed',
                     'action':       'POST',
-                    'exception_msg':'description or points field Not Found',
+                    'exception_msg':'description field Not Found',
                     'status_code':  400
                 }),400
         
@@ -51,16 +52,16 @@ class TaskImagesAPI(Resource):
         image.from_json(request.json)
         dbmobile_images.add(image)                       
 
-        for src in request.json['points']:
-            point = dbmobile_points.init()
-            point.images_id = image.id
-            point.x = src['x']
-            point.y = src['y']
+        if request.json['points']:
+            for src in request.json['points']:
+                point = dbmobile_points.init()
+                point.images_id = image.id
+                point.x = src['x']
+                point.y = src['y']
         
-            dbmobile_points.add(point)            
+                dbmobile_points.add(point)            
 
         return jsonify( { 'image': image.to_json() } )
-
 
 class TaskImageAPI(Resource):
     def __init__(self):
