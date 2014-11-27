@@ -15,8 +15,8 @@
 <VirtualHost *:80>
     ServerAdmin webmaster@ibercivis.es
 
-    ServerName  sun4allmobile.socientize.eu
-    ServerAlias www.sun4allmobile.socientize.eu
+    ServerName api.socientize.eu
+    ServerAlias www.api.socientize.eu
 
     SetEnvIf Request_URI "^/check\.txt$" dontlog
     SetEnvIf User-Agent "^check_http" dontlog
@@ -29,13 +29,13 @@
     DocumentRoot /var/www/sun4allmobile
 
     # if not specified, the global error log is used
-    ErrorLog ${APACHE_LOG_DIR}/sun4allmobile.socientize.eu_error.log
+    ErrorLog ${APACHE_LOG_DIR}/api.socientize.eu_error.log
 
     # Possible values include: debug, info, notice, warn, error, crit,
     # alert, emerg.
     LogLevel debug
     #CustomLog ${APACHE_LOG_DIR}/database.socientize.eu_access.log combined
-    CustomLog ${APACHE_LOG_DIR}/sun4allmobile.socientize.eu_access.log proxy env=!dontlog
+    CustomLog ${APACHE_LOG_DIR}/api.socientize.eu_access.log proxy env=!dontlog
 
     # don't loose time with IP address lookups
     HostnameLookups On
