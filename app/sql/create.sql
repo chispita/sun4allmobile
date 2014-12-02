@@ -45,3 +45,17 @@ CREATE TABLE cellmarks(
         deleted TIMESTAMP,
         FOREIGN KEY (result_id) REFERENCES cellresults (id)
 );
+
+DROP TABLE mindpathsresults;
+CREATE TABLE mindpathsresults(
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        pair_id INT NOT NULL,
+        length INT NOT NULL,
+        words VARCHAR (900),
+        ids VARCHAR(780),
+        browser VARCHAR(100),
+        source_ip VARCHAR(15),
+        created TIMESTAMP DEFAULT NOW(),
+        deleted TIMESTAMP
+);
+

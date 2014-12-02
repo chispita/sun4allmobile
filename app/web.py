@@ -4,7 +4,7 @@ from flask.ext.restful import Api, Resource
 
 from api import TaskImagesAPI, TaskImageAPI
 from cells import TaskCellsAPI
-
+from mindpaths import TaskMindPathsAPI
 
 # other views ...
 api = Api(app)
@@ -52,6 +52,8 @@ api.add_resource(TaskImageAPI, "/api/images/<string:description>", endpoint = 't
 #api.add_resource(TaskCellsAPI, '/api/1.0/cellresults', endpoint = 'viewcellsresults')
 
 api.add_resource(TaskCellsAPI, "/api/cellresults", endpoint ='cells')
+
+api.add_resource(TaskMindPathsAPI, "/api/mindpathsresults", endpoint ='mindpaths')
 
 if __name__ == "__main__":  # pragma: no cover
     #logging.basicConfig(level=logging.NOTSET)
