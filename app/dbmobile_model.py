@@ -43,7 +43,6 @@ class Images(Base):
 
         return image
 
-
     def from_json(self,source):
         if 'id' in source:
             self.id = source['id']
@@ -65,4 +64,60 @@ class Points(Base):
 
     def __repr__(self):
         return '<Points: %s-%s: x:%s, y:%s>' % (self.id, self.images_id,self.x,self.y)
+
+
+class CellResults(Base):
+    __tablename__ = 'cellresults'
+    id = Column(Integer, primary_key = True)
+    image_name = Column(String, nullable=False)
+    browser = Column(String, default='')
+    source_ip = Column(String, default='')
+    created = Column(DateTime)
+    deleted = Column(DateTime, default=0)
+    cellmarks = relationship('CellMarks')
+
+    def __repr__(self):
+        return '<Cell Result: %s-%s>' % (self.id, self.image_name)
+
+    def to_json(self):
+        result = { 
+                'id'            : self.id,
+                'image_name'      : self.image_name,
+                'browser'       : self.browser,
+                'source_ip'     : self.source_ip,
+                'created'       : self.created,
+                'deleted'       : self.deleted
+                }
+        
+        
+        if self.cellmarks:
+            result['cellmarks']=[]
+            for mark in self.cellmarks:
+                result['cellmarks'].append({ 'typeofmarking': mark.typeofmarking, 'x':mark.x, 'y':mark.y})
+
+        return result
+
+    def from_json(self,source):
+
+        if 'id' in source:
+            self.id = source['id']
+        if 'image_name' in source:
+            self.image_name = source['image_name']
+        if 'delete' in source:
+            self.delete = source['deleted']
+
+
+class CellMarks(Base):
+    __tablename__ = 'cellmarks'
+    id = Column(Integer, primary_key = True)
+    typeofmarking = Column(Integer)
+    x = Column(Integer)
+    y = Column(Integer)
+    source_ip = Column(String, default='')
+    created = Column(DateTime)
+    deleted = Column(DateTime, default=0)
+    result_id = Column(Integer, ForeignKey('cellresults.id'))
+
+    def __repr__(self):
+        return '<CellMarks: %s-%s: typeofmarking:%s x:%s, y:%s>' % (self.id, self.result_id,self.typeofmarking,self.x,self.y)
 

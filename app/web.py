@@ -3,9 +3,12 @@ from flask import Flask, jsonify, abort, request, make_response, url_for
 from flask.ext.restful import Api, Resource
 
 from api import TaskImagesAPI, TaskImageAPI
+from cells import TaskCellsAPI
+
 
 # other views ...
 api = Api(app)
+
 
 
 @app.errorhandler(400)
@@ -42,8 +45,13 @@ class TaskUsersAPeeI(Resource):
     def post(self):
         return 'User post'
 
-api.add_resource(TaskImagesAPI, '/api/images', endpoint = 'tasks')
-api.add_resource(TaskImageAPI, '/api/images/<description>', endpoint = 'task')
+api.add_resource(TaskImagesAPI, "/api/image", endpoint = 'tasks')
+api.add_resource(TaskImageAPI, "/api/images/<string:description>", endpoint = 'task')
+
+
+#api.add_resource(TaskCellsAPI, '/api/1.0/cellresults', endpoint = 'viewcellsresults')
+
+api.add_resource(TaskCellsAPI, "/api/cellresults", endpoint ='cells')
 
 if __name__ == "__main__":  # pragma: no cover
     #logging.basicConfig(level=logging.NOTSET)

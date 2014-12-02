@@ -78,3 +78,7 @@ class TaskImageAPI(Resource):
 
         return jsonify( { 'image': image.to_json() })
 
+    def post(self):
+        pass
+
+
