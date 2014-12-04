@@ -34,25 +34,9 @@ def about():
     """Render the about template"""
     return "Aplicacion de Ibercivis"
 
-class TaskUsersAPeeI(Resource):
-
-    def __init__(self):
-        pass
-
-    def get(self):
-        return 'User get'
-
-    def post(self):
-        return 'User post'
-
 api.add_resource(TaskImagesAPI, "/api/image", endpoint = 'tasks')
 api.add_resource(TaskImageAPI, "/api/images/<string:description>", endpoint = 'task')
-
-
-#api.add_resource(TaskCellsAPI, '/api/1.0/cellresults', endpoint = 'viewcellsresults')
-
 api.add_resource(TaskCellsAPI, "/api/cellresults", endpoint ='cells')
-
 api.add_resource(TaskMindPathsAPI, "/api/mindpathsresults", endpoint ='mindpaths')
 
 if __name__ == "__main__":  # pragma: no cover
