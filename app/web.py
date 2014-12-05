@@ -5,10 +5,13 @@ from flask.ext.restful import Api, Resource
 from api import TaskImagesAPI, TaskImageAPI
 from cells import TaskCellsAPI
 from mindpaths import TaskMindPathsAPI
+from v1_0 import api_v1_0, api_v1_0_bp, API_VERSION_V1_0
+from v1_1 import api_v1_1, api_v1_1_bp, API_VERSION_V1_1
+
+import json
 
 # other views ...
 api = Api(app)
-
 
 
 @app.errorhandler(400)
@@ -19,13 +22,15 @@ def not_found(error):
 def not_found(error):
     return make_response(jsonify( { 'error': 'Not found' } ), 404)
 
-
 @app.route('/')
 @app.route('/index')
 def index():
     """
     Home page
     """
+    data = { "version":API_VERSION_V1}
+
+    return json.dumps(data)
     return "Hello, sun4allmobile application1!"
 
 
@@ -39,8 +44,19 @@ api.add_resource(TaskImageAPI, "/api/images/<string:description>", endpoint = 't
 api.add_resource(TaskCellsAPI, "/api/cellresults", endpoint ='cells')
 api.add_resource(TaskMindPathsAPI, "/api/mindpathsresults", endpoint ='mindpaths')
 
+app.register_blueprint(
+    api_v1_0_bp,
+    url_prefix='{prefix}/v{version}'.format(
+        prefix='/api',
+        version=API_VERSION_V1_0))
+
+app.register_blueprint(
+    api_v1_1_bp,
+    url_prefix='{prefix}/v{version}'.format(
+        prefix='/api',
+        version=API_VERSION_V1_1))
+
 if __name__ == "__main__":  # pragma: no cover
     #logging.basicConfig(level=logging.NOTSET)
     app.run(host=app.config['HOST'], port=get_port(),
     debug=app.config.get('DEBUG', True))
-
