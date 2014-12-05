@@ -10,6 +10,8 @@ from v1_1 import api_v1_1, api_v1_1_bp, API_VERSION_V1_1
 
 import json
 
+API_VERSION = 1
+
 # other views ...
 api = Api(app)
 
@@ -28,7 +30,12 @@ def index():
     """
     Home page
     """
-    return "Hello, socientize api"
+    
+    data =  { 'hello' : 'Hello socientize api',
+             'version' : API_VERSION,
+            }
+
+    return jsonify( data)
 
 
 @app.route("/about")
@@ -45,7 +52,7 @@ app.register_blueprint(
     api_v1_0_bp,
     url_prefix='{prefix}/v{version}'.format(
         prefix='/api',
-        version=API_VERSION_V1_0))
+     version=API_VERSION_V1_0))
 
 app.register_blueprint(
     api_v1_1_bp,
