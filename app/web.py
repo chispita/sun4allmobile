@@ -28,10 +28,7 @@ def index():
     """
     Home page
     """
-    data = { "version":API_VERSION_V1}
-
-    return json.dumps(data)
-    return "Hello, sun4allmobile application1!"
+    return "Hello, socientize api"
 
 
 @app.route("/about")
