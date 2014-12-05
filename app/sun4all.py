@@ -1,15 +1,21 @@
+# -*- coding: utf-8 -*-
+
 from flask import jsonify, abort, request
 from flask.ext.restful import Resource
-
 import json
 
 import dbmobile_images
 import dbmobile_points
 
+from v1_0 import API_VERSION_V1_0
+#from web import api
+
+#@api.route('/api/image', endpoint='tasks')
 class TaskImagesAPI(Resource):
     def __init__(self):
         pass
 
+    #@api.doc(responses={404: 'Doesn\'t exist'})
     def get(self):
         """ 
         Show all images
@@ -25,6 +31,7 @@ class TaskImagesAPI(Resource):
 
         return jsonify( { 'images':  result } )
 
+    #@api.doc(responses={400: 'not request json sent'})
     def post(self):
         """ 
         Insert a image 
