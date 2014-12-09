@@ -1,6 +1,5 @@
 *.pyc
 flask/*
-app/*.pyc
-app/config.py
+settings_local.py
 test/*.pyc
 alembic.ini
