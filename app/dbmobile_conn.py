@@ -1,19 +1,13 @@
 #!/usr/bin/python
 import dbmobile_model
 
-from config import database
+from app.core import app
 from sqlalchemy import orm
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from dbmobile_model import Base, Images, Points
 
-connection_string ="mysql://%s:%s@%s/%s" % (
-    database['user'], 
-    database['pass'],
-    database['server'],
-    database['name'])
-
-engine = create_engine(connection_string, echo=True)
+engine = create_engine(app.config.get('SQLALCHEMY_DATABASE_URI'), echo=True)
 
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance

@@ -1,7 +1,10 @@
 from flask import jsonify, abort, request
 from flask.ext.restful import Resource
+from core import app
+
 
 import json
+import logging
 
 import dbmobile_cellresults
 import dbmobile_cellmarks
@@ -14,7 +17,6 @@ class TaskCellsAPI(Resource):
         """ 
         Show all results
         """
-
         results = dbmobile_cellresults.getall()
 
         if results is None:

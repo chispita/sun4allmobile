@@ -7,9 +7,6 @@ import json
 import dbmobile_images
 import dbmobile_points
 
-from v1_0 import API_VERSION_V1_0
-#from web import api
-
 #@api.route('/api/image', endpoint='tasks')
 class TaskImagesAPI(Resource):
     def __init__(self):

@@ -2,7 +2,7 @@ from core import app
 from flask import Flask, jsonify, abort, request, make_response, url_for
 from flask.ext.restful import Api, Resource
 
-from api import TaskImagesAPI, TaskImageAPI
+from sun4all import TaskImagesAPI, TaskImageAPI
 from cells import TaskCellsAPI
 from mindpaths import TaskMindPathsAPI
 from v1_0 import api_v1_0, api_v1_0_bp, API_VERSION_V1_0
