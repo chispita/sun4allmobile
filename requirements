@@ -6,3 +6,5 @@ MySQL-Python
 nose
 requests
 BeautifulSoup4
+logging
+Flask-mail
