@@ -36,7 +36,7 @@ diferentes entradas de la misma de forma automática.
 
 Para ver la misma simplemente acceda por web a la pagina donde resida la api, en este caso podría ser:
 ```
-http://{site-url}/api
+http://{site-url}
 ``` 
 
 ## Tareas pendientes
