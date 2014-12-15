@@ -32,9 +32,9 @@ class Images(Base):
                 'id'            : self.id,
                 'description'   : self.description,
                 'browser'       : self.browser,
-                'source_ip'     : self.source_ip
-                #'created'       : self.created,
-                #'deleted'       : self.deleted
+                'source_ip'     : self.source_ip,
+                'created'       : self.created,
+                'deleted'       : self.deleted
                 }
         
         if self.points:
