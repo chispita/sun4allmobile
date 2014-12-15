@@ -16,6 +16,7 @@ CREATE TABLE points(
         images_id int,
         x double,
         y double,
+        width int,
         browser VARCHAR(100),
         source_ip VARCHAR(15),
         created TIMESTAMP DEFAULT NOW(),
