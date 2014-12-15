@@ -8,7 +8,7 @@ from core import app, api, ns
 import dbmobile_images
 import dbmobile_points
 
-point_fields = api.model('Point', {
+point_fields = api.model('points', {
     'x': fields.Float,
     'y': fields.Float,
     'width' : fields.Float,
@@ -67,8 +67,14 @@ class TaskImageAPI(Resource):
                     'exception_msg':'description field Not Found',
                     'status_code':  400
                 })
-        
-        image = dbmobile_images.init()
+       
+        try:
+            image = dbmobile_images.init(
+                ip=request.remote_addr,
+                browser=request.headers['X-Forwarded-For'])
+        except:
+            image = dbmobile_images.init()
+
         image.from_json(request.json)
         dbmobile_images.add(image)                       
 
@@ -79,8 +85,8 @@ class TaskImageAPI(Resource):
                 point.x = src['x']
                 point.y = src['y']
                 point.width = src['width']
-        
-                dbmobile_points.add(point)            
+                            
+                dbmobile_points.add(point)     
 
         return image.to_json() 
 

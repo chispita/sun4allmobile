@@ -5,8 +5,8 @@ from dbmobile_model import Images
 
 def init(ip=None,browser=None):
     image = dbmobile_model.Images()
-    image.description = None
-    image.source_ip = None    
+    image.browser=browser
+    image.source_ip=ip  
     session.add(image)
     session.commit()
     return image

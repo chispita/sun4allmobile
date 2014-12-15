@@ -26,8 +26,12 @@ def not_found(error):
 @app.route("/about")
 def about():
     """Render the about template"""
+
     data =  { 'about' : 'Api Socientize application',
              'version' : API_VERSION,
+             'IP': request.remote_addr,
+             'IP2': request.headers['X-Forwarded-For'],
+             'browser': request.headers['User-Agent'],
             }
     return jsonify( data)
 

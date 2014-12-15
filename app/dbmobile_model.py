@@ -18,7 +18,7 @@ class Images(Base):
     __tablename__ = 'images'
     id = Column(Integer, primary_key = True)
     description = Column(String, nullable=False)
-    browser = Column(String, default='')
+    browser = Column(String(100), default='')
     source_ip = Column(String, default='')
     created = Column(DateTime)
     deleted = Column(DateTime, default=0)
