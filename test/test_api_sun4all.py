@@ -20,17 +20,19 @@ class APITestSun4All(unittest.TestCase):
         assert 200 == res.status_code
 
     def test_01_Add_Image(self):
-        data = {'description': 'zoe1', 
-                'points':'99'}
+        data = {'description': 'zoe'} 
 
         data['points'] = []
         point = {'x' : 1,
-                 'y' : 2}
+                 'y' : 2,
+                 'width' : 3}                 
         data['points'].append( point)
-        point = {'x' : 1.1,
-                 'y' : 2.3}
+
+        point = {'x' : 4.4,
+                 'y' : 5.5,
+                 'width': 6.6}
         data['points'].append( point)
-        
+
         url = '/api/image'
         res = self.test_app.post(
             url, 
@@ -49,7 +51,7 @@ class APITestSun4All(unittest.TestCase):
         url = '/api/image/%s' % name_image
         res = self.test_app.get( url )
 
-        err_msg = "Image_Exits excepcion buscando una imagen"
+        err_msg = "*** Image_Exits excepcion buscando una imagen: %s" % res
         assert 200 == res.status_code, err_msg
 
     def test_03_Get_Image_NonExists(self):
