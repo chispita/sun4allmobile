@@ -40,7 +40,7 @@ class Images(Base):
         if self.points:
             image['points']=[]
             for point in self.points:
-                image['points'].append({ 'x':point.x, 'y':point.y})
+                image['points'].append({ 'x':point.x, 'y':point.y, 'width':point.width})
 
         return image
 
@@ -56,15 +56,16 @@ class Images(Base):
 class Points(Base):
     __tablename__ = 'points'
     id = Column(Integer, primary_key = True)
-    x = Column(Integer)
-    y = Column(Integer)
+    x = Column(Float(precision=2), default=0)
+    y = Column(Float(precision=2), default=0)
+    width = Column(Float(precision=2), default=0)
     source_ip = Column(String, default='')
     created = Column(DateTime)
     deleted = Column(DateTime, default=0)
     images_id = Column(Integer, ForeignKey('images.id'))
 
     def __repr__(self):
-        return '<Points: %s-%s: x:%s, y:%s>' % (self.id, self.images_id,self.x,self.y)
+        return '<Points: %s-%s: x:%s, y:%s, width:%s>' % (self.id, self.images_id,self.x,self.y,self.width)
 
 
 class CellResults(Base):

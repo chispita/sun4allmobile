@@ -9,8 +9,9 @@ import dbmobile_images
 import dbmobile_points
 
 point_fields = api.model('Point', {
-    'x': fields.Integer,
-    'y': fields.Integer,
+    'x': fields.Float,
+    'y': fields.Float,
+    'width' : fields.Float,
     })
 
 image_fields = api.model('Image', {
@@ -18,7 +19,7 @@ image_fields = api.model('Image', {
         'browser': fields.String(required=False),
         'deleted': fields.String(required=False),
         'source_ip': fields.String(required=False),
-        'points': fields.Nested(point_fields),
+        'points': fields.List(fields.Nested(point_fields)),
         'created': fields.DateTime,
     })
 
@@ -77,6 +78,7 @@ class TaskImageAPI(Resource):
                 point.images_id = image.id
                 point.x = src['x']
                 point.y = src['y']
+                point.width = src['width']
         
                 dbmobile_points.add(point)            
 

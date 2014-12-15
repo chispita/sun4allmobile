@@ -11,8 +11,6 @@ def init(ip=None,browser=None):
     return image
 
 def add( point ):
-    #image = dbmobile_model.Images()
-    #image.description = description
     session.add(point)
     session.commit()
 
