@@ -3,8 +3,7 @@
 import os
 import logging
 from flask import Flask
-from flask.ext.mail import Mail
-
+from flask.ext.restplus import Api
 
 def create_app():
     app = Flask(__name__)
@@ -26,17 +25,14 @@ def configure_app(app):
 from logging.handlers import SMTPHandler
 def setup_error_email(app):
     ADMINS = app.config.get('ADMINS', '')
-    #if not app.debug and ADMINS: # pragma: no cover
-    if ADMINS:
-        app.logger.debug( ADMINS ) 
-
+    if not app.debug and ADMINS: # pragma: no cover
         mail_handler = SMTPHandler(
             mailhost=( app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
             fromaddr= app.config['MAIL_DEFAULT_SENDER'],
             toaddrs = ADMINS, 
             subject=u'Error en Api Socientize'
             )
-        mail_handler.setLevel(logging.ERROR)
+        #mail_handler.setLevel(logging.ERROR)
         app.logger.addHandler(mail_handler)
 
 from logging.handlers import RotatingFileHandler
@@ -58,3 +54,13 @@ def setup_logging(app):
         logger.addHandler(file_handler)
 
 app = create_app()    
+api = Api(
+        app, version='1.0', 
+        title='Todo API',
+        description='A simple TODO API extracted from the original flask-restful example',
+        default='api_socientize',
+        default_label='Socientize Swagger',
+        contact='info@socientize.ue'
+        )
+
+ns = api.namespace('Socientize', description='Api Socientize')
