@@ -2,8 +2,8 @@ activate_this = '/var/www/sun4allmobile/flask/bin/activate_this.py'
 execfile(activate_this, dict(__file__=activate_this))
 # Import sys to add the path
 import sys
-import logging
-logging.basicConfig(stream=sys.stderr)
+#import logging
+#logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,'/var/www/sun4allmobile')
 
 # Run the web-app

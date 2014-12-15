@@ -1,18 +1,31 @@
-# -*- coding: utf-8 -*-
+# -* coding: utf-8 -*-
 
 from flask import jsonify, abort, request
-from flask.ext.restful import Resource
+from flask.ext.restplus import Resource, reqparse, fields
 import json
 
+from core import app, api, ns
 import dbmobile_images
 import dbmobile_points
 
-#@api.route('/api/image', endpoint='tasks')
-class TaskImagesAPI(Resource):
-    def __init__(self):
-        pass
+point_fields = api.model('Point', {
+    'x': fields.Integer,
+    'y': fields.Integer,
+    })
 
-    #@api.doc(responses={404: 'Doesn\'t exist'})
+image_fields = api.model('Image', {
+        'description': fields.String,
+        'browser': fields.String(required=False),
+        'deleted': fields.String(required=False),
+        'source_ip': fields.String(required=False),
+        'points': fields.Nested(point_fields),
+        'created': fields.DateTime,
+    })
+
+class TaskImagesAPI(Resource):
+    
+    @api.doc(responses={404: 'Image not found'})
+    @api.marshal_list_with(image_fields)
     def get(self):
         """ 
         Show all images
@@ -20,20 +33,22 @@ class TaskImagesAPI(Resource):
         images = dbmobile_images.getall()
 
         if images is None:
-            abort(404)
+            api.abort(404)
 
-        result = []
-        for image in images:
-            result.append(image.to_json())
+        return [ image.to_json() for  image in images]
 
-        return jsonify( { 'images':  result } )
+image_parser = api.parser()
+image_parser.add_argument('body', type=image_fields, required=True, help='The description of the image')
 
-    #@api.doc(responses={400: 'not request json sent'})
+class TaskImageAPI(Resource):
+    @api.doc(parser=image_parser)
+    @api.doc(responses={400: 'Bad sending data'})
+    @api.doc(responses={404: 'Image not save'})
+    @api.marshal_with(image_fields)
     def post(self):
         """ 
-        Insert a image 
+        Save an image
         """
-
         if not request.json:
             return jsonify( 
                 {
@@ -41,7 +56,7 @@ class TaskImagesAPI(Resource):
                     'action':       'POST',
                     'exception_msg':'not request json sent',
                     'status_code':  400
-                }),400
+                })
 
         if not 'description' in request.json:
             return jsonify( 
@@ -50,7 +65,7 @@ class TaskImagesAPI(Resource):
                     'action':       'POST',
                     'exception_msg':'description field Not Found',
                     'status_code':  400
-                }),400
+                })
         
         image = dbmobile_images.init()
         image.from_json(request.json)
@@ -65,24 +80,23 @@ class TaskImagesAPI(Resource):
         
                 dbmobile_points.add(point)            
 
-        return jsonify( { 'image': image.to_json() } )
+        return image.to_json() 
 
-class TaskImageAPI(Resource):
-    def __init__(self):
-        pass
-
+class TaskImageAPI_byDescription(Resource):
+    @api.doc(params={'description': 'The description of the image'})
+    @api.doc(responses={404: 'Image not found'})
+    @api.marshal_with(image_fields)
     def get(self,description):
         """ 
         Get one imagen 
         """
-
         image = dbmobile_images.get(description)
         if image is None:
-            abort(404)
+            return jsonify( 
+                {
+                    'code':         1,
+                    'message':      'Image not found',
+                    'type':         'error'
+                }), 404
 
-        return jsonify( { 'image': image.to_json() })
-
-    def post(self):
-        pass
-
-
+        return image.to_json()

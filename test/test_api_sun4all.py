@@ -7,26 +7,20 @@ import json
 import requests
 #from bs4 import BeautifulSoup
 
-from default import init_db
+#from default import init_db
 
 class APITestSun4All(unittest.TestCase):
 
     def setUp(self):
         self.test_app = app.test_client()
-    
-    def test_00_Home(self):
-        data = json.loads(self.test_app.get().data)
 
-        assert data.get('version') == 1
-        assert data.get('hello') == 'Hello socientize api'       
-
-    def test_01_Get_Images(self):
-        url = '/api/image'
+    def test_00_Get_Images(self):
+        url = '/api/images'
         res = self.test_app.get( url )
         assert 200 == res.status_code
 
-    def test_02_Add_Image(self):
-        data = {'description': 'zoe', 
+    def test_01_Add_Image(self):
+        data = {'description': 'zoe1', 
                 'points':'99'}
 
         data['points'] = []
@@ -38,7 +32,6 @@ class APITestSun4All(unittest.TestCase):
         data['points'].append( point)
         
         url = '/api/image'
-
         res = self.test_app.post(
             url, 
             data=json.dumps(data),
@@ -47,15 +40,24 @@ class APITestSun4All(unittest.TestCase):
 
         err_msg = "AddImage excepcion grabando la imagen"
 
+        print '*** ERROR ***: %s' % res
         
         assert 200 == res.status_code, err_msg
-    
-    def test_03_Get_Image_NonExists(self):
-        self.test_app = app.test_client()
 
-        url = '/api/images/%s' % '75252'
+    def test_02_Get_Image_Exists(self):
+        name_image='zoe'
+        url = '/api/image/%s' % name_image
         res = self.test_app.get( url )
 
-        err_msg = "Image_NonExits  excepcion buscando una imagen inexistente"
-        assert 404 == res.status_code, err_msg
+        err_msg = "Image_Exits excepcion buscando una imagen"
+        assert 200 == res.status_code, err_msg
 
+    def test_03_Get_Image_NonExists(self):
+        name_image='zoe23121'
+        url = '/api/image/%s' % name_image
+        res = self.test_app.get( url )
+
+        err_msg = "Image_Exits excepcion buscando una imagen que no existe"
+
+        print '*** %s' % res.status_code
+        assert 404 == res.status_code, err_msg

@@ -1,11 +1,12 @@
 #!/usr/bin/python
 import dbmobile_model
 
-from app.core import app
+from core import app
 from sqlalchemy import orm
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from dbmobile_model import Base, Images, Points
+
 
 engine = create_engine(app.config.get('SQLALCHEMY_DATABASE_URI'), echo=True)
 
@@ -21,4 +22,5 @@ DBSession = sessionmaker(autoflush=True, bind=engine)
 # session.commit(). If you're not happy about the changes, you can
 # revert all of them back to the last commit by calling
 session = DBSession()
+
 
