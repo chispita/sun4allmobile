@@ -4,7 +4,6 @@ from core import app
 
 
 import json
-import logging
 
 import dbmobile_cellresults
 import dbmobile_cellmarks
