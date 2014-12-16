@@ -7,13 +7,9 @@ def init(ip=None,browser=None):
     image = dbmobile_model.Images()
     image.browser=browser
     image.source_ip=ip  
-    session.add(image)
-    session.commit()
     return image
 
 def add( image ):
-    #image = dbmobile_model.Images()
-    #image.description = description
     session.add(image)
     session.commit()
 
