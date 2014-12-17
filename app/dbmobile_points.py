@@ -4,11 +4,10 @@ from dbmobile_conn import session
 from dbmobile_model import Images
 
 def init(ip=None,browser=None):
-    image = dbmobile_model.Points()
-    image.source_ip = None    
-    session.add(image)
-    session.commit()
-    return image
+    point=dbmobile_model.Points()
+    point.source_ip=ip  
+    point.browser=browser
+    return point
 
 def add( point ):
     session.add(point)

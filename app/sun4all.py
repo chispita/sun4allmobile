@@ -7,11 +7,12 @@ import json
 from core import app, api, ns
 import dbmobile_images
 import dbmobile_points
+from utilities import getRequestValues
 
 point_fields = api.model('points', {
     'x': fields.Float,
     'y': fields.Float,
-    'width' : fields.Float,
+    'width': fields.Float
     })
 
 image_fields = api.model('Image', {
@@ -20,7 +21,7 @@ image_fields = api.model('Image', {
         'deleted': fields.String(required=False),
         'source_ip': fields.String(required=False),
         'points': fields.List(fields.Nested(point_fields)),
-        'created': fields.DateTime,
+        'created': fields.DateTime
     })
 
 class TaskImagesAPI(Resource):
@@ -67,20 +68,29 @@ class TaskImageAPI(Resource):
                     'exception_msg':'description field Not Found',
                     'status_code':  400
                 })
+        
+        get_server= getRequestValues(request)
+        ip=None
+        browser=None
+        if get_server:
+            if 'ip' in get_server:
+                ip=get_server['ip']
+
+            if 'browser' in get_server:
+                browser=get_server['browser']
        
-        try:
-            image = dbmobile_images.init(
-                ip=request.remote_addr,
-                browser=request.headers['X-Forwarded-For'])
-        except:
-            image = dbmobile_images.init()
+        image = dbmobile_images.init(
+            ip=ip,
+            browser=browser)
 
         image.from_json(request.json)
         dbmobile_images.add(image)                       
 
         if request.json['points']:
             for src in request.json['points']:
-                point = dbmobile_points.init()
+                point = dbmobile_points.init(
+                    ip=ip,
+                    browser=browser)
                 point.images_id = image.id
                 point.x = src['x']
                 point.y = src['y']

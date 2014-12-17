@@ -59,6 +59,7 @@ class Points(Base):
     x = Column(Float(precision=2), default=0)
     y = Column(Float(precision=2), default=0)
     width = Column(Float(precision=2), default=0)
+    browser = Column(String(100), default='')
     source_ip = Column(String, default='')
     created = Column(DateTime)
     deleted = Column(DateTime, default=0)
