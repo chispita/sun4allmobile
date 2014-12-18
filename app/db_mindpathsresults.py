@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from core import db
-from model.mindpathsresults import MindPathsResults
+from model import MindPathsResults
 
 def init(ip=None,browser=None):
     result=MindPathsResults()
@@ -8,7 +8,8 @@ def init(ip=None,browser=None):
     result.length=None
     result.words=None
     result.ids=None
-    result.source_ip=None    
+    result.source_ip=ip
+    result.browser=browser 
     return result
 
 def add(result):

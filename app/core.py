@@ -11,8 +11,10 @@ def create_app():
 
     configure_app(app)
     setup_error_email(app)
+
     setup_logging(app)
     setup_db(app)
+    app.logger.debug('Al final de create_app')
 
     return app
 
@@ -25,6 +27,7 @@ def configure_app(app):
 
 from logging.handlers import SMTPHandler
 def setup_error_email(app):
+
     ADMINS = app.config.get('ADMINS', '')
     if not app.debug and ADMINS: # pragma: no cover
         mail_handler = SMTPHandler(
@@ -39,6 +42,7 @@ def setup_error_email(app):
 from logging.handlers import RotatingFileHandler
 from logging import Formatter
 def setup_logging(app):
+    app.logger.debug('setup_error_logging')
     log_file_path = app.config.get('LOG_FILE')
     log_level = app.config.get('LOG_LEVEL', logging.WARN)
 
@@ -55,15 +59,19 @@ def setup_logging(app):
         logger.addHandler(file_handler)
 
 def setup_db(app):
+    app.logger.debug('setup_db')
     app.db = SQLAlchemy(app)
 
-app = create_app()    
-db = app.db
-api = Api(
-        app, version='1.0', 
-        title='Todo API',
-        description='A simple TODO API extracted from the original flask-restful example',
-        default='api_socientize',
-        default_label='Socientize Swagger',
-        contact='info@socientize.ue'
-        )
+app=create_app()    
+api=Api(
+    app, version='1.0', 
+    title='Todo API',
+    description='A simple TODO API extracted from the original flask-restful example',
+    default='api_socientize',
+    default_label='Socientize Swagger',
+    contact='info@socientize.ue'
+    )
+
+app.logger.debug('Api: %s' % api)
+db=app.db
+

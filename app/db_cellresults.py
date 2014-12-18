@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 from core import db
-from model.cellresults import CellResults
+from model import CellResults
 
 def init(ip=None,browser=None):
     result=CellResults()
-    result.image_name=None
-    result.source_ip=None    
+    result.source_ip=ip
+    result.browser=browser
     return result
 
 def add( result ):

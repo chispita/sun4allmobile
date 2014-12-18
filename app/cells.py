@@ -1,15 +1,35 @@
+# -* coding: utf-8 -*-
+
 from flask import jsonify, abort, request
-from flask.ext.restful import Resource
-from core import app
+from flask.ext.restplus import Resource, fields
+from core import app, api
 import json
 
 import db_cellresults
 import db_cellmarks
+from utilities import getRequestValues
+
+mark_fields = api.model('cellmarks', {
+    'x': fields.Integer,
+    'y': fields.Integer,
+    'typeofmarking': fields.Float
+})
+
+cell_fields = api.model('cells', {
+    'image_name' : fields.String(), 
+    'browser': fields.String(required=False),
+    'deleted': fields.String(required=False),
+    'source_ip': fields.String(required=False),
+    'cellmarks': fields.List(fields.Nested(mark_fields)),
+    'created': fields.DateTime
+    })
 
 class TaskCellsAPI(Resource):
     def __init__(self):
         pass
 
+    @api.doc(responses={404: 'Cell not found'})
+    @api.marshal_list_with(cell_fields)
     def get(self):
         """ 
         Show all results
@@ -19,12 +39,7 @@ class TaskCellsAPI(Resource):
         if results is None:
             abort(404)
 
-        results_array = []
-        for result in results:
-            results_array.append(result.to_json())
-
-        return jsonify( { 'results':  results_array } )
-
+        return [result.to_json() for result in results]
 
     def post(self):
         """ 
@@ -58,14 +73,27 @@ class TaskCellsAPI(Resource):
                     'exception_msg':'marks field Not Found',
                     'status_code':  400
                 }),400
+
+        get_server= getRequestValues(request)
+        ip=None
+        browser=None
+        if get_server:
+            if 'ip' in get_server:
+                ip=get_server['ip']
+            if 'browser' in get_server:
+                browser=get_server['browser']
         
-        result = db_cellresults.init()
+        result = db_cellresults.init(
+            ip=ip,
+            browser=browser)
         result.from_json(request.json)
         db_cellresults.add(result)                       
 
         if request.json['marks']:
             for src in request.json['marks']:
-                mark = db_cellmarks.init()
+                mark = db_cellmarks.init(
+                    ip=ip,
+                    browser=browser)
                 mark.result_id = result.id
                 mark.typeofmarking = src['typeofmarking']
                 mark.x = src['x']
@@ -73,5 +101,4 @@ class TaskCellsAPI(Resource):
         
                 db_cellmarks.add(mark)            
 
-        return jsonify( { 'result': result.to_json() } )
-
+        return result.to_json()

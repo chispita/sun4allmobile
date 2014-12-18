@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 from core import db
-from model.cellmarks import CellMarks
+from model import CellMarks
 
 def init(ip=None,browser=None):
-    cellmark=db.CellMarks()
-    cellmark.source_ip=None    
-    return cellmark
+    result=CellMarks()
+    result.source_ip=ip
+    result.browser=browser
+    return result
 
 def add(cellmark):
     db.session.add(cellmark)
