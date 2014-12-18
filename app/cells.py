@@ -1,12 +1,10 @@
 from flask import jsonify, abort, request
 from flask.ext.restful import Resource
 from core import app
-
-
 import json
 
-import dbmobile_cellresults
-import dbmobile_cellmarks
+import db_cellresults
+import db_cellmarks
 
 class TaskCellsAPI(Resource):
     def __init__(self):
@@ -16,7 +14,7 @@ class TaskCellsAPI(Resource):
         """ 
         Show all results
         """
-        results = dbmobile_cellresults.getall()
+        results = db_cellresults.getall()
 
         if results is None:
             abort(404)
@@ -61,19 +59,19 @@ class TaskCellsAPI(Resource):
                     'status_code':  400
                 }),400
         
-        result = dbmobile_cellresults.init()
+        result = db_cellresults.init()
         result.from_json(request.json)
-        dbmobile_cellresults.add(result)                       
+        db_cellresults.add(result)                       
 
         if request.json['marks']:
             for src in request.json['marks']:
-                mark = dbmobile_cellmarks.init()
+                mark = db_cellmarks.init()
                 mark.result_id = result.id
                 mark.typeofmarking = src['typeofmarking']
                 mark.x = src['x']
                 mark.y = src['y']
         
-                dbmobile_cellmarks.add(mark)            
+                db_cellmarks.add(mark)            
 
         return jsonify( { 'result': result.to_json() } )
 

@@ -1,9 +1,9 @@
+# -*- coding: utf8 -*-
 from flask import jsonify, abort, request
 from flask.ext.restful import Resource
 
 import json
-
-import dbmobile_mindpathsresults
+import db_mindpathsresults
 
 class TaskMindPathsAPI(Resource):
     def __init__(self):
@@ -13,8 +13,7 @@ class TaskMindPathsAPI(Resource):
         """ 
         Show all results
         """
-
-        results = dbmobile_mindpathsresults.getall()
+        results = db_mindpathsresults.getall()
 
         if results is None:
             abort(404)
@@ -24,7 +23,6 @@ class TaskMindPathsAPI(Resource):
             results_array.append(result.to_json())
 
         return jsonify( { 'results':  results_array } )
-
 
     def post(self):
         """ 
@@ -77,9 +75,9 @@ class TaskMindPathsAPI(Resource):
                     'status_code':  400
                 }),400
 
-        result = dbmobile_mindpathsresults.init()
+        result = db_mindpathsresults.init()
         result.from_json(request.json)
-        dbmobile_mindpathsresults.add(result)                       
+        db_mindpathsresults.add(result)                       
 
         return jsonify( { 'result': result.to_json() } )
 

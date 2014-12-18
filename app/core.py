@@ -1,9 +1,9 @@
 # -*- coding: utf8 -*-
-
 import os
 import logging
 from flask import Flask
 from flask.ext.restplus import Api
+from flask.ext.sqlalchemy import SQLAlchemy
 
 def create_app():
     app = Flask(__name__)
@@ -12,6 +12,7 @@ def create_app():
     configure_app(app)
     setup_error_email(app)
     setup_logging(app)
+    setup_db(app)
 
     return app
 
@@ -53,7 +54,11 @@ def setup_logging(app):
         logger.setLevel(log_level)
         logger.addHandler(file_handler)
 
+def setup_db(app):
+    app.db = SQLAlchemy(app)
+
 app = create_app()    
+db = app.db
 api = Api(
         app, version='1.0', 
         title='Todo API',
@@ -62,5 +67,3 @@ api = Api(
         default_label='Socientize Swagger',
         contact='info@socientize.ue'
         )
-
-ns = api.namespace('Socientize', description='Api Socientize')

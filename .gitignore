@@ -3,3 +3,4 @@ flask/*
 settings_local.py
 test/*.pyc
 alembic.ini
+app/test.py

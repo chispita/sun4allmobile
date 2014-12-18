@@ -4,9 +4,9 @@ from flask import jsonify, abort, request
 from flask.ext.restplus import Resource, reqparse, fields
 import json
 
-from core import app, api, ns
-import dbmobile_images
-import dbmobile_points
+from core import app, api
+import db_images
+import db_points 
 from utilities import getRequestValues
 
 point_fields = api.model('points', {
@@ -32,14 +32,14 @@ class TaskImagesAPI(Resource):
         """ 
         Show all images
         """
-        images = dbmobile_images.getall()
+        images=db_images.getall()
 
         if images is None:
             api.abort(404)
 
         return [ image.to_json() for  image in images]
 
-image_parser = api.parser()
+image_parser=api.parser()
 image_parser.add_argument('body', type=image_fields, required=True, help='The description of the image')
 
 class TaskImageAPI(Resource):
@@ -79,24 +79,24 @@ class TaskImageAPI(Resource):
             if 'browser' in get_server:
                 browser=get_server['browser']
        
-        image = dbmobile_images.init(
+        image = db_images.init(
             ip=ip,
             browser=browser)
 
         image.from_json(request.json)
-        dbmobile_images.add(image)                       
+        db_images.add(image)                       
 
         if request.json['points']:
             for src in request.json['points']:
-                point = dbmobile_points.init(
+                point=db_points.init(
                     ip=ip,
                     browser=browser)
                 point.images_id = image.id
-                point.x = src['x']
-                point.y = src['y']
-                point.width = src['width']
+                point.x=src['x']
+                point.y=src['y']
+                point.width=src['width']
                             
-                dbmobile_points.add(point)     
+                db_points.add(point)     
 
         return image.to_json() 
 
@@ -108,7 +108,7 @@ class TaskImageAPI_byDescription(Resource):
         """ 
         Get one imagen 
         """
-        image = dbmobile_images.get(description)
+        image=db_images.get(description)
         if image is None:
             return jsonify( 
                 {
