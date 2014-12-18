@@ -14,7 +14,6 @@ def create_app():
 
     setup_logging(app)
     setup_db(app)
-    app.logger.debug('Al final de create_app')
 
     return app
 
@@ -42,7 +41,6 @@ def setup_error_email(app):
 from logging.handlers import RotatingFileHandler
 from logging import Formatter
 def setup_logging(app):
-    app.logger.debug('setup_error_logging')
     log_file_path = app.config.get('LOG_FILE')
     log_level = app.config.get('LOG_LEVEL', logging.WARN)
 
@@ -59,7 +57,6 @@ def setup_logging(app):
         logger.addHandler(file_handler)
 
 def setup_db(app):
-    app.logger.debug('setup_db')
     app.db = SQLAlchemy(app)
 
 app=create_app()    
@@ -71,7 +68,5 @@ api=Api(
     default_label='Socientize Swagger',
     contact='info@socientize.ue'
     )
-
-app.logger.debug('Api: %s' % api)
 db=app.db
 
