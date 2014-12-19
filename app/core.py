@@ -26,7 +26,6 @@ def configure_app(app):
 
 from logging.handlers import SMTPHandler
 def setup_error_email(app):
-
     ADMINS = app.config.get('ADMINS', '')
     if not app.debug and ADMINS: # pragma: no cover
         mail_handler = SMTPHandler(
