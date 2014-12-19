@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from core import db
-from model import CellResults
+from model.cellresults import CellResults
 
 def init(ip=None,browser=None):
     result=CellResults()

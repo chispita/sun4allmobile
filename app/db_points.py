@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from core import db
-from model import Points
+from model.points import Points
 
 def init(ip=None,browser=None):
     point=Points()

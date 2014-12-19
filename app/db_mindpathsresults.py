@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from core import db
-from model import MindPathsResults
+from model.mindpathsresults import MindPathsResults
 
 def init(ip=None,browser=None):
     result=MindPathsResults()

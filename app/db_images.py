@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from core import db
-from model import Images
+from model.images import Images
 
-def init(ip,browser):
+def init(ip=None,browser=None):
     image=Images()
     image.browser=browser
     image.source_ip=ip  

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from core import db
-from model import CellMarks
+from model.cellmarks import CellMarks
 
 def init(ip=None,browser=None):
     result=CellMarks()
