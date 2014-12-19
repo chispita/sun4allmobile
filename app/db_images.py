@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from core import db
+from app.core import db
 from model.images import Images
 
 def init(ip=None,browser=None):
